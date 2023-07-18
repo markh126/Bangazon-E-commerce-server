@@ -1,0 +1,47 @@
+[
+    {
+        "model": "bangazonapi.customer",
+        "pk": 1,
+        "fields": {
+            "first_name": "Test",
+            "last_name": "One",
+            "username": "T199",
+            "bio": "Test",
+            "profile_image_url": "https://img.freepik.com/free-icon/user_318-159711.jpg",
+            "email": "test1@test.com",
+            "created_on": "2023-07-18",
+            "seller": 1,
+            "uid": "1"
+        }
+    },
+    {
+        "model": "bangazonapi.customer",
+        "pk": 2,
+        "fields": {
+            "first_name": "Test",
+            "last_name": "Two",
+            "username": "T286",
+            "bio": "Test",
+            "profile_image_url": "https://img.freepik.com/free-icon/user_318-159711.jpg",
+            "email": "test2@test.com",
+            "created_on": "2023-07-18",
+            "seller": 0,
+            "uid": "2"
+        }
+    },
+    {
+        "model": "bangazonapi.customer",
+        "pk": 3,
+        "fields": {
+            "first_name": "Test",
+            "last_name": "Three",
+            "username": "T301",
+            "bio": "Test",
+            "profile_image_url": "https://img.freepik.com/free-icon/user_318-159711.jpg",
+            "email": "test3@test.com",
+            "created_on": "2023-07-18",
+            "seller": 0,
+            "uid": "3"
+        }
+    }
+]
