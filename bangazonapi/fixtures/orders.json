@@ -1,0 +1,35 @@
+[
+    {
+        "model": "bangazonapi.order",
+        "pk": 1,
+        "fields": {
+            "details": "Test",
+            "payment_type": "credit",
+            "date_placed": "2023-07-18",
+            "open": 1,
+            "customer_id": 2
+        }
+    },
+    {
+        "model": "bangazonapi.order",
+        "pk": 2,
+        "fields": {
+            "details": "Test",
+            "payment_type": "credit",
+            "date_placed": "2023-07-18",
+            "open": 1,
+            "customer_id": 2
+        }
+    },
+    {
+        "model": "bangazonapi.order",
+        "pk": 3,
+        "fields": {
+            "details": "Test",
+            "payment_type": "credit",
+            "date_placed": "2023-07-18",
+            "open": 1,
+            "customer_id": 3
+        }
+    }
+]

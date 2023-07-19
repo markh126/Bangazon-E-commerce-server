@@ -1,0 +1,41 @@
+[
+    {
+        "model": "bangazonapi.product",
+        "pk": 1,
+        "fields": {
+            "name": "Test Movie 1",
+            "price": 50,
+            "product_info": "Test",
+            "product_image_url": "https://img.freepik.com/free-icon/user_318-159711.jpg",
+            "created_on": "2023-07-18",
+            "category": "movies",
+            "seller_id": 1
+        }
+    },
+    {
+        "model": "bangazonapi.product",
+        "pk": 2,
+        "fields": {
+            "name": "Test Movie 2",
+            "price": 25,
+            "product_info": "Test",
+            "product_image_url": "https://img.freepik.com/free-icon/user_318-159711.jpg",
+            "created_on": "2023-07-18",
+            "category": "movies",
+            "seller_id": 1
+        }
+    },
+    {
+        "model": "bangazonapi.product",
+        "pk": 3,
+        "fields": {
+            "name": "Test Music 1",
+            "price": 15,
+            "product_info": "Test",
+            "product_image_url": "https://img.freepik.com/free-icon/user_318-159711.jpg",
+            "created_on": "2023-07-18",
+            "category": "music",
+            "seller_id": 1
+        }
+    }
+]
