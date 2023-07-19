@@ -1,8 +1,6 @@
 from django.db import models
-from safedelete.models import SafeDeleteModel
 
-class Customer(SafeDeleteModel):
-    deleted_by_cascade = None
+class Customer(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     profile_image_url = models.CharField(max_length=300)
@@ -10,5 +8,6 @@ class Customer(SafeDeleteModel):
     username = models.CharField(max_length=50)
     bio = models.CharField(max_length=300)
     seller = models.BooleanField(default=False)
+    created_on = models.DateField(auto_now_add=True)
     uid = models.CharField(max_length=200)
     

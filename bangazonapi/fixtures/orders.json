@@ -5,7 +5,7 @@
         "fields": {
             "details": "Test",
             "payment_type": "credit",
-            "order_date": "2023-07-18",
+            "date_placed": "2023-07-18",
             "open": 1,
             "customer_id": 2
         }
@@ -16,7 +16,7 @@
         "fields": {
             "details": "Test",
             "payment_type": "credit",
-            "order_date": "2023-07-18",
+            "date_placed": "2023-07-18",
             "open": 1,
             "customer_id": 2
         }
@@ -27,7 +27,7 @@
         "fields": {
             "details": "Test",
             "payment_type": "credit",
-            "order_date": "2023-07-18",
+            "date_placed": "2023-07-18",
             "open": 1,
             "customer_id": 3
         }
