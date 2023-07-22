@@ -14,3 +14,4 @@ class ProductSerializer(serializers.ModelSerializer):
                   'created_on',
                   'seller_id'
                   )
+        depth = 1

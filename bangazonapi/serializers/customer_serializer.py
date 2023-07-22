@@ -12,3 +12,4 @@ class CustomerSerializer(serializers.ModelSerializer):
                   'profile_image_url',
                   'email',
                   'created_on',)
+        depth = 1

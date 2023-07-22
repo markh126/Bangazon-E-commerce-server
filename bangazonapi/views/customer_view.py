@@ -6,7 +6,7 @@ from bangazonapi.models.customer import Customer
 from bangazonapi.serializers.customer_serializer import CustomerSerializer
 
 class CustomerView(ViewSet):
-    """Bangazon Customer View0"""
+    """Bangazon Customer View"""
     def retrieve(self, request, pk):
         """GET request for a single customer"""
         try:
@@ -21,3 +21,23 @@ class CustomerView(ViewSet):
         customers = Customer.objects.all()
         serializer = CustomerSerializer(customers, many=True, context={'request': request})
         return Response(serializer.data)
+
+    def update(self, request, pk):
+        """PUT request to update a customer"""
+        customer = Customer.objects.get(pk=pk)
+        uid = request.META["HTTP_AUTHORIZATION"]
+        customer.first_name = request.data['firstName']
+        customer.last_name = request.data['lastName']
+        customer.bio = request.data['bio']
+        customer.profile_image_url = request.data['profileImageUrl']
+        customer.email = request.data['email']
+        customer.username = request.data['username']
+        customer.uid = uid
+        customer.save()
+        return Response({'message': 'Customer Updated'}, status=status.HTTP_204_NO_CONTENT)
+
+    def destroy(self, request, pk):
+        """DELETE request to destroy a customer"""
+        customer = Customer.objects.get(pk=pk)
+        customer.delete()
+        return Response({'message': 'Customer DESTROYED'}, status=status.HTTP_204_NO_CONTENT)

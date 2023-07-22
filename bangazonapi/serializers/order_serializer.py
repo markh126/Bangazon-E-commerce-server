@@ -12,3 +12,4 @@ class OrderSerializer(serializers.ModelSerializer):
                   'open',
                   'customer_id'
                   )
+        depth = 1

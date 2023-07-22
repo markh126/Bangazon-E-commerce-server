@@ -8,3 +8,4 @@ class SellerSerializer(serializers.ModelSerializer):
         fields = ('id',
                   'customer_id'
                   )
+        depth = 1
