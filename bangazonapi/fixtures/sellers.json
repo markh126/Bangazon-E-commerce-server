@@ -1,9 +1,0 @@
-[
-    {
-        "model": "bangazonapi.seller",
-        "pk": 1,
-        "fields": {
-            "customer_id": 1
-        }
-    }
-]

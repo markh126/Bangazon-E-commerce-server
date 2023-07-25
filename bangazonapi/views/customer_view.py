@@ -31,7 +31,7 @@ class CustomerView(ViewSet):
         customer.bio = request.data['bio']
         customer.profile_image_url = request.data['profileImageUrl']
         customer.email = request.data['email']
-        customer.username = request.data['username']
+        customer.username = request.data['userName']
         customer.uid = uid
         customer.save()
         return Response({'message': 'Customer Updated'}, status=status.HTTP_204_NO_CONTENT)

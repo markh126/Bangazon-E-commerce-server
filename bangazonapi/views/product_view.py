@@ -2,8 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from bangazonapi.models.product import Product
-from bangazonapi.models.seller import Seller
+from bangazonapi.models import Product, Customer
 from bangazonapi.serializers.product_serializer import ProductSerializer
 
 class ProductView(ViewSet):
@@ -25,12 +24,12 @@ class ProductView(ViewSet):
 
     def create(self, request):
         """POST request for creating a product"""
-        seller = Seller.objects.get(pk=request.data["seller_id"])
+        seller = Customer.objects.get(uid=request.META['HTTP_AUTHORIZATION'])
         product = Product.objects.create(
             name = request.data["name"],
-            product_image_url = request.data["product_image_url"],
+            product_image_url = request.data["productImageUrl"],
             price = request.data["price"],
-            product_info = request.data["product_info"],
+            product_info = request.data["productInfo"],
             category = request.data["category"],
             seller_id = seller
         )

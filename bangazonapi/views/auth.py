@@ -52,7 +52,7 @@ def register_user(request):
         bio = request.data["bio"],
         profile_image_url = request.data["profileImageUrl"],
         email = request.data["email"],
-        username = request.data["username"],
+        username = request.data["userName"],
     )
 
     # Return the user info to the client
