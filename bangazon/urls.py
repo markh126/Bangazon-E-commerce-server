@@ -14,6 +14,7 @@ router.register(r'products', ProductView, 'product')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('api/orders/<int:pk>/add_to_cart/', OrderView.as_view({'post': 'add_to_cart'}), name='add_to_cart'),
     path('register', register_user),
     path('checkuser', check_user),
 ]

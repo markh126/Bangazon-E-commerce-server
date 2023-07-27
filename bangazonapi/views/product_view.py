@@ -1,4 +1,4 @@
-from django.http import HttpResponseServerError
+# from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
@@ -18,8 +18,11 @@ class ProductView(ViewSet):
 
     def list(self, request):
         """GET request for a list of products"""
-        products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True, context={'request': request})
+        product = Product.objects.all()
+        seller_id = request.query_params.get('sellerId', None)
+        if seller_id is not None:
+            product = product.filter(seller_id=seller_id)
+        serializer = ProductSerializer(product, many=True, context={'request': request})
         return Response(serializer.data)
 
     def create(self, request):
@@ -41,9 +44,9 @@ class ProductView(ViewSet):
         """PUT request to update a product"""
         product = Product.objects.get(pk=pk)
         product.name = request.data["name"]
-        product.product_image_url = request.data["product_image_url"]
+        product.product_image_url = request.data["productImageUrl"]
         product.price = request.data["price"]
-        product.product_info = request.data["product_info"]
+        product.product_info = request.data["productInfo"]
         product.category = request.data["category"]
         product.save()
         return Response({'message: Product Updated'}, status=status.HTTP_204_NO_CONTENT)
