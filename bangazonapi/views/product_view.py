@@ -1,9 +1,8 @@
-from django.http import HttpResponseServerError
+# from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from bangazonapi.models.product import Product
-from bangazonapi.models.seller import Seller
+from bangazonapi.models import Product, Customer
 from bangazonapi.serializers.product_serializer import ProductSerializer
 
 class ProductView(ViewSet):
@@ -19,18 +18,21 @@ class ProductView(ViewSet):
 
     def list(self, request):
         """GET request for a list of products"""
-        products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True, context={'request': request})
+        product = Product.objects.all()
+        seller_id = request.query_params.get('sellerId', None)
+        if seller_id is not None:
+            product = product.filter(seller_id=seller_id)
+        serializer = ProductSerializer(product, many=True, context={'request': request})
         return Response(serializer.data)
 
     def create(self, request):
         """POST request for creating a product"""
-        seller = Seller.objects.get(pk=request.data["seller_id"])
+        seller = Customer.objects.get(uid=request.META['HTTP_AUTHORIZATION'])
         product = Product.objects.create(
             name = request.data["name"],
-            product_image_url = request.data["product_image_url"],
+            product_image_url = request.data["productImageUrl"],
             price = request.data["price"],
-            product_info = request.data["product_info"],
+            product_info = request.data["productInfo"],
             category = request.data["category"],
             seller_id = seller
         )
@@ -42,9 +44,9 @@ class ProductView(ViewSet):
         """PUT request to update a product"""
         product = Product.objects.get(pk=pk)
         product.name = request.data["name"]
-        product.product_image_url = request.data["product_image_url"]
+        product.product_image_url = request.data["productImageUrl"]
         product.price = request.data["price"]
-        product.product_info = request.data["product_info"]
+        product.product_info = request.data["productInfo"]
         product.category = request.data["category"]
         product.save()
         return Response({'message: Product Updated'}, status=status.HTTP_204_NO_CONTENT)

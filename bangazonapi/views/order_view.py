@@ -1,4 +1,5 @@
 from django.http import HttpResponseServerError
+from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -41,26 +42,38 @@ class OrderView(ViewSet):
         order.payment_type = request.data["payment_type"]
         order.save()
         return Response({'message: Order Payment Updated'}, status=status.HTTP_204_NO_CONTENT)
+    
+    def destroy(self, request, pk):
+        """DELETE request to destroy a product"""
+        order = Order.objects.get(pk=pk)
+        order.delete()
+        return Response({'message: Order DESTROYED'}, status=status.HTTP_204_NO_CONTENT)
 
-    @action(methods=['post'], detail=True)
-    def add_to_order(self, request, pk):
+    @action(methods=['post'], detail=False)
+    def add_to_cart(self, request, pk):
         """POST action to add product to open order"""
-        product = Product.objects.get(pk=request.data["product_id"])
-        order = Order.objects.get(pk=pk)
-        OrderProduct.objects.create(
-            product_id = product,
-            order_id = order
-        )
-        return Response({'message: Added to Order'}, status=status.HTTP_201_CREATED)
+        # customer_id = request.data.get("customer_id")
+        product_id = request.data.get("product_id")
 
-    @action(methods=['delete'], detail=True)
-    def remove_from_order(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        order, _ = Order.objects.get_or_create(customer_id=customer, open=True)
+
+        product = get_object_or_404(Product, pk=product_id)
+        OrderProduct.objects.create(product_id=product, order_id=order)
+
+        return Response({'message': 'Added to Order'}, status=status.HTTP_201_CREATED)
+
+    @action(methods=['delete'], detail=False)
+    def remove_from_cart(self, request):
         """DELETE action to remove a product from an open order"""
-        product = Product.objects.get(pk=request.data["product_id"])
-        order = Order.objects.get(pk=pk)
-        cart_product = OrderProduct.objects.get(
-            product_id = product,
-            order_id = order
-        )
-        cart_product.delete()
-        return Response({'message: Removed from Order'}, status=status.HTTP_204_NO_CONTENT)
+        customer_id = request.data.get("customer_id")
+        product_id = request.data.get("product_id")
+
+        customer = get_object_or_404(Customer, pk=customer_id)
+        order = get_object_or_404(Order, customer_id=customer, open=True)
+
+        product = get_object_or_404(Product, pk=product_id)
+        cart_products = OrderProduct.objects.filter(product_id=product, order_id=order)
+        cart_products.delete()
+
+        return Response({'message': 'Removed from Order'}, status=status.HTTP_204_NO_CONTENT)
