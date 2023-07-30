@@ -12,6 +12,7 @@ class ProductSerializer(serializers.ModelSerializer):
                   'product_image_url',
                   'category',
                   'created_on',
-                  'seller_id'
+                  'seller_id',
+                  'joined'
                   )
         depth = 1

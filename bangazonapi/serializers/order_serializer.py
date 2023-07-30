@@ -9,6 +9,6 @@ class OrderSerializer(serializers.ModelSerializer):
                   'date_placed',
                   'payment_type',
                   'open',
-                  'customer_id'
+                  'customer_id',
                   )
         depth = 1

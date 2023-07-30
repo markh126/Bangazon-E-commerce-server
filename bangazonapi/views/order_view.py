@@ -64,12 +64,9 @@ class OrderView(ViewSet):
         return Response({'message': 'Added to Order'}, status=status.HTTP_201_CREATED)
 
     @action(methods=['delete'], detail=False)
-    def remove_from_cart(self, request):
+    def remove_from_cart(self, request, pk, product_id):
         """DELETE action to remove a product from an open order"""
-        customer_id = request.data.get("customer_id")
-        product_id = request.data.get("product_id")
-
-        customer = get_object_or_404(Customer, pk=customer_id)
+        customer = get_object_or_404(Customer, pk=pk)
         order = get_object_or_404(Order, customer_id=customer, open=True)
 
         product = get_object_or_404(Product, pk=product_id)

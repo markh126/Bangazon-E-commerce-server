@@ -2,7 +2,7 @@
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from bangazonapi.models import Product, Customer
+from bangazonapi.models import Product, Customer, OrderProduct, Order
 from bangazonapi.serializers.product_serializer import ProductSerializer
 
 class ProductView(ViewSet):
@@ -18,11 +18,15 @@ class ProductView(ViewSet):
 
     def list(self, request):
         """GET request for a list of products"""
-        product = Product.objects.all()
+        products = Product.objects.all()
         seller_id = request.query_params.get('sellerId', None)
         if seller_id is not None:
-            product = product.filter(seller_id=seller_id)
-        serializer = ProductSerializer(product, many=True, context={'request': request})
+            products = products.filter(seller_id=seller_id)
+        for product in products:
+            # Check to see if there is a row in the Event Games table that has the passed in gamer and event
+            product.joined = len(OrderProduct.objects.filter(
+                product_id=product)) > 0
+        serializer = ProductSerializer(products, many=True, context={'request': request})
         return Response(serializer.data)
 
     def create(self, request):
